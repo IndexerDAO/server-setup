@@ -142,7 +142,8 @@ PasswordAuthentication no
 ## Can only access server through a password
 
 UsePAM no
-## If UsePAM is enabled, you will not be able to run sshd(8) as a non-root user. The default is “no”.```
+## If UsePAM is enabled, you will not be able to run sshd(8) as a non-root user. The default is “no”. 
+```
   
 <br><br>
   
