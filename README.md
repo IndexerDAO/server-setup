@@ -143,11 +143,11 @@ UsePAM no
     
 `unzip nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip -d nethermind` Unzips the zip file we just downloaded into a folder called nethermind
     
-`-d` Specify which directory to unzip the files
+  + `-d` Specify which directory to unzip the files
     
 `sudo cp -a nethermind /usr/local/bin/nethermind` Copies nethermind into /usr/local/bin/
     
-`-a` Copies the file with the same permission settings and metadata as the original.
+  + `-a` Copies the file with the same permission settings and metadata as the original.
     
 `rm nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip` Removes the zip file
     
