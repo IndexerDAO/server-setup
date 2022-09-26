@@ -135,24 +135,7 @@ UsePAM no
 ```
   
 <br><br>
-  
-`curl -LO [https://github.com/NethermindEth/nethermind/releases/download/1.14.1/nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip](https://github.com/NethermindEth/nethermind/releases/download/1.14.1/nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip)` Downloads 
 
-`unzip nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip -d nethermind`
-
-`sudo cp -a nethermind /usr/local/bin/nethermind`
-
-`rm nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip`
-
-`rm -r nethermind`
-
-`sudo apt-get update && sudo apt-get install libsnappy-dev libc6-dev libc6 unzip`
-
-`sudo mkdir -p /var/lib/nethermind`
-
-`sudo chown -R nethermind:nethermind /var/lib/nethermind`
-
-`sudo nano /etc/systemd/system/nethermind.service`
   
 ## Gnosis Nethermind
     
