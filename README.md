@@ -1,4 +1,4 @@
-# server-setup
+# Server Setup - Gnosis Nethermind 1.14.1
 
 
 ## Install Ubuntu
@@ -90,11 +90,6 @@ export keys with termius
 <br>
     
 </details>
-    
-
-`sudo useradd --no-create-home --shell /bin/false lighthousebeacon` Creates a user named `lighthousebeacon`
-
-`sudo useradd --no-create-home --shell /bin/false erigon` Creates a user named `erigon`
 
 `sudo useradd --no-create-home --shell /bin/false nethermind` Creates a user named `nethermind`
 
@@ -109,13 +104,7 @@ export keys with termius
 
 `sudo ufw allow 22` ssh
 
-`sudo ufw allow 30303` erigon peers
-
-`sudo ufw allow 40303` nethermind peers
-
-`sudo ufw allow 9000/tcp` lighthouse peers
-
-`sudo ufw allow 9000/udp` lighthouse peers
+`sudo ufw allow 40403` nethermind peers
 
 `sudo ufw enable` Enables ufw
 
@@ -147,27 +136,130 @@ UsePAM no
   
 <br><br>
   
-## Go
+`curl -LO [https://github.com/NethermindEth/nethermind/releases/download/1.14.1/nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip](https://github.com/NethermindEth/nethermind/releases/download/1.14.1/nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip)` Downloads 
+
+`unzip nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip -d nethermind`
+
+`sudo cp -a nethermind /usr/local/bin/nethermind`
+
+`rm nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip`
+
+`rm -r nethermind`
+
+`sudo apt-get update && sudo apt-get install libsnappy-dev libc6-dev libc6 unzip`
+
+`sudo mkdir -p /var/lib/nethermind`
+
+`sudo chown -R nethermind:nethermind /var/lib/nethermind`
+
+`sudo nano /etc/systemd/system/nethermind.service`
   
-`wget -c https://golang.org/dl/go1.19.1.linux-amd64.tar.gz` download go
-
-`sudo tar -C /usr/local -xvzf go1.19.1.linux-amd64.tar.gz` unpack go
-
-`rm go1.19.1.linux-amd64.tar.gz` download go
-
-`nano ~/.profile` edits “~/.profile”
-
-`export PATH=$PATH:/usr/local/go/bin` added to the end of file
-
-`sudo ln -s /usr/local/go/bin/go /usr/local/bin/go` Make the executable available to everyone.
-
-`source ~/.profile` Refresh profile
-  
+## Gnosis Nethermind
+    
+`curl -LO [https://github.com/NethermindEth/nethermind/releases/download/1.14.1/nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip](https://github.com/NethermindEth/nethermind/releases/download/1.14.1/nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip)` Downloads a .zip file with the nethermind binaries
+    
+`unzip nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip -d nethermind` Unzips the zip file we just downloaded into a folder called nethermind
+    
+`-d` Specify which directory to unzip the files
+    
+`sudo cp -a nethermind /usr/local/bin/nethermind` Copies nethermind into /usr/local/bin/
+    
+`-a` Copies the file with the same permission settings and metadata as the original.
+    
+`rm nethermind-linux-amd64-1.14.1-1a32d45-20220907.zip` Removes the zip file
+    
+`rm -r nethermind` Removes the unzipped nethermind folder (we already copied this to  /usr/local/bin/)
+    
+`sudo apt-get update && sudo apt-get install libsnappy-dev libc6-dev libc6 unzip` Downloads and installs dependencies
+    
+`sudo mkdir -p /var/lib/nethermind` Makes a directory for the datafiles
+    
+`sudo chown -R nethermind:nethermind /var/lib/nethermind` Changes the owner of the newly created data folder to the nethermind user
+    
+`sudo nano /etc/systemd/system/nethermind.service` Edit the nethermind service file
+    
+```graphql
+[Unit]
+Description=Nethermind Execution Client (Gnosis)
+After=network.target
+Wants=network.target
+[Service]
+User=nethermind
+Group=nethermind
+Type=simple
+Restart=always
+LimitNOFILE=1000000
+RestartSec=5
+WorkingDirectory=/var/lib/nethermind
+Environment="DOTNET_BUNDLE_EXTRACT_BASE_DIR=/var/lib/nethermind"
+ExecStart=/usr/local/bin/nethermind/Nethermind.Runner \
+  --config gnosis_archive_rpc \
+  --datadir /var/lib/nethermind \
+  --Metrics.Enabled true \
+  --Network.P2PPort 40403 \
+  --Network.DiscoveryPort 40403
+[Install]
+WantedBy=default.target
+```
+    
+`sudo nano /usr/local/bin/nethermind/configs/gnosis_archive_rpc.cfg` Edit the configuration file
+    
+```jsx
+{
+  "Init": {
+    "ChainSpecPath": "chainspec/xdai.json",
+    "GenesisHash": "0x4f1dd23188aab3a76b463e4af801b52b1248ef073c648cbdc4c9333d3da79756",
+    "BaseDbPath": "nethermind_db/xdai_archive",
+    "LogFileName": "xdai_archive.logs.txt",
+    "MemoryHint": 1024000000
+  },
+  "Mining": {
+    "MinGasPrice": "1000000000"
+  },
+  "EthStats": {
+    "Name": "Nethermind xDai"
+  },
+  "Metrics": {
+    "NodeName": "xDai Archive"
+  },
+  "Bloom":
+  {
+    "IndexLevelBucketSizes" : [16, 16, 16]
+  },
+  "Pruning": {
+    "Mode": "None"
+  },
+  "JsonRpc": {
+    "Enabled": true,
+    "Timeout": 20000,
+    "Host": "127.0.0.1",
+    "Port": 9545,
+    "EnabledModules": [
+      "Eth",
+      "AccountAbstraction",
+      "Trace",
+      "TxPool",
+      "Web3",
+      "Personal",
+      "Proof",
+      "Net",
+      "Parity",
+      "Health",
+      "Rpc"
+    ]
+  }
+}
+```
+    
+`sudo systemctl daemon-reload`
+    
+`sudo systemctl start nethermind`
+    
+`sudo systemctl enable nethermind`
+    
 <br><br>
   
-Useful commands:
-
-`go version` check version
-  
- <br><br>
-  
+Logs:
+    
+`sudo journalctl -fu nethermind`
+   
