@@ -53,6 +53,8 @@ Useful commands:
 
   + `-aG` assign a user to one or more supplementary groups 
 
+<br><br>
+
 ### Add ssh keys directly
     
 `su <username>` switch to other user
@@ -107,13 +109,13 @@ Useful commands:
 
 `ufw disable` Disables ufw
   
- <br><br>
+<br><br>
   
- ## SSH
+## SSH
  
- ! WARNING ! Do not proceed with this step until you confirm being able to SSH into the new user you created. 
+! WARNING ! Do not proceed with this step until you confirm being able to SSH into the new user you created. 
   
- `sudo nano /etc/ssh/sshd_config`
+`sudo nano /etc/ssh/sshd_config`
   
 ```
 PermitRootLogin no
