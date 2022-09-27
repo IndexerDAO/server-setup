@@ -51,9 +51,7 @@ Useful commands:
 
   + `-aG` assign a user to one or more supplementary groups 
 
-<details>
-
-<summary>Add ssh keys directly</summary>
+### Add ssh keys directly
 
 <br>
     
@@ -77,19 +75,14 @@ Add Public keys - one key per line
 
 <br>
 
-</details>
-    
-<details>
-
-<summary> OR Add ssh keys with termius </summary>
+### OR Add ssh keys with termius </summary>
 
 <br>
 
 export keys with termius
 
 <br>
-    
-</details>
+
 
 `sudo useradd --no-create-home --shell /bin/false nethermind` Creates a user named `nethermind`
 
