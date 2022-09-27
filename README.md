@@ -33,6 +33,7 @@ Useful commands:
 `df -h` Check free space on disc
 
 <br><br>
+
 ## Server setup
 `apt update && apt upgrade` Updates packages
 
@@ -43,6 +44,7 @@ Useful commands:
 `apt install unzip`
 
 <br><br>
+
 ## User Management
 
 `adduser <username>` Adds a new user. 
@@ -52,8 +54,6 @@ Useful commands:
   + `-aG` assign a user to one or more supplementary groups 
 
 ### Add ssh keys directly
-
-<br>
     
 `su <username>` switch to other user
     
@@ -75,9 +75,7 @@ Add Public keys - one key per line
 
 <br>
 
-### OR Add ssh keys with termius </summary>
-
-<br>
+### OR Add ssh keys with termius
 
 export keys with termius
 
@@ -89,7 +87,7 @@ export keys with termius
   + `--shell /bin/false`  is just a binary that immediately exits, returning false, when it's called, so when someone has `false`
  as the shell logs in, they're immediately logged out.
  
- <br><br>
+<br><br>
  
 ## UFW - Uncomplicated firewall 
   
@@ -101,7 +99,7 @@ export keys with termius
 
 `sudo ufw enable` Enables ufw
 
- <br><br>
+<br><br>
   
 Useful commands:
 
@@ -115,9 +113,10 @@ Useful commands:
  
  ! WARNING ! Do not proceed with this step until you confirm being able to SSH into the new user you created. 
   
- sudo nano /etc/ssh/sshd_config
+ `sudo nano /etc/ssh/sshd_config`
   
- ```PermitRootLogin no
+```
+PermitRootLogin no
 ## Prevents root logins through ssh
 
 PasswordAuthentication no
