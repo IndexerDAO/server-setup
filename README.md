@@ -53,6 +53,12 @@ Useful commands:
 
   + `-aG` assign a user to one or more supplementary groups 
 
+
+`sudo useradd --no-create-home --shell /bin/false nethermind` Creates a user named `nethermind`
+
+  + `--shell /bin/false`  is just a binary that immediately exits, returning false, when it's called, so when someone has `false`
+ as the shell logs in, they're immediately logged out.
+
 <br><br>
 
 ### Add ssh keys directly
@@ -84,10 +90,6 @@ export keys with termius
 <br>
 
 
-`sudo useradd --no-create-home --shell /bin/false nethermind` Creates a user named `nethermind`
-
-  + `--shell /bin/false`  is just a binary that immediately exits, returning false, when it's called, so when someone has `false`
- as the shell logs in, they're immediately logged out.
  
 <br><br>
  
