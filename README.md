@@ -65,7 +65,7 @@ Useful commands:
     
 `su <username>` switch to other user
     
-`cd ~` `cd <username>` Enters the home dir of the user we just created
+`cd ~` Enters the home dir of the user we just created
     
 `mkdir .ssh` creates “.ssh” 
     
