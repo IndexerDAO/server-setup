@@ -4,7 +4,7 @@
 Install Ubuntu 22.04
 
 ``` bash
-installimage -n slimdexor -r no -i images/Ubuntu-2204-jammy-amd64-base.tar.gz -d nvme0n1,nvme1n1 -p /boot:ext3:512M,lvm:vg0:all -v vg0:root:/:ext4:all
+installimage -n launchpad -r no -i images/Ubuntu-2204-jammy-amd64-base.tar.gz -d nvme0n1,nvme1n1 -p /boot:ext3:512M,lvm:vg0:all -v vg0:root:/:ext4:all
 ```
 
 Set up ssh key pair authentication
@@ -68,7 +68,42 @@ git push origin main
 Update `inventory/inventory.yaml` with our host IP, port, and username using [`single_node.sample.yaml`](https://github.com/graphops/launchpad-starter/blob/main/inventory/samples/single-node.sample.yaml) template
 
 ``` bash
-todo
+# Example of an inventory for single host that will be configured
+# as both the Kubernetes master and as a Kubernetes worker node
+
+all:
+  vars:
+    hardened_ssh_port: &hardened-ssh-port 1500
+  hosts:
+    launchpad: # you can customise the name of your host
+      ansible_host: 162.55.134.32
+
+init_group:
+  hosts:
+    launchpad:
+  vars:
+    ansible_user: root
+    hardened_ssh_port: *hardened-ssh-port
+    main_user: &main-user paka
+    enable_sshd_config: true # change to true to enable ssh hardening and lock port 22
+    enable_lvm_config: false
+
+k0s:
+  vars:
+    ansible_user: *main-user
+    become: true
+    k0s_version: v1.24.6+k0s.0
+    k0s_use_custom_config: false
+    ansible_ssh_port: *hardened-ssh-port
+  children:
+    initial_controller:
+      hosts:
+        launchpad:
+      vars:
+        # --no-taints removes node-role.kubernetes.io/master taint
+        # so that k8s workloads can be provisioned on the controller node
+        # konnectivity-server is not required in a one node flat network cluster
+        extra_args: "--enable-worker --no-taints --disable-components konnectivity-server"
 ```
 
 Bootstraps host with Kubernetes
