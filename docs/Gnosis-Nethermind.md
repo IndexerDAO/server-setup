@@ -1,4 +1,4 @@
-# Server Setup - Gnosis Nethermind 1.14.1
+# Gnosis Nethermind 1.14.1
 
 
 ## Install Ubuntu
