@@ -14,4 +14,4 @@ minima:
   date_format: "%b %-d, %Y"
 
 header_pages:
-  - Launchpad-Part1.md
+  - Guides.md
