@@ -56,4 +56,34 @@ git remote add origin https://github.com/IndexerDAO/launchpad-office-hours.git
 git push origin main
 ```
 
+Install launchpad-core submodule, commit changes to git, and push to GitHub
 
+``` bash
+sudo task launchpad:setup
+git add .
+git commit -m "feat: added launchpad-core submodule"
+git push origin main
+```
+
+Update `inventory/inventory.yaml` with our host IP, port, and username using [`single_node.sample.yaml`](https://github.com/graphops/launchpad-starter/blob/main/inventory/samples/single-node.sample.yaml) template
+
+``` bash
+todo
+```
+
+Bootstraps host with Kubernetes
+
+``` bash
+task hosts:apply-base -- -e ansible_ssh_port=22 -e ansible_user=root
+task hosts:apply-k0s
+mkdir -p ~/.kube
+mv ~/.kube/config ~/.kube/config.backup.$(date +%s)
+cp inventory/artifacts/k0s-kubeconfig.yml ~/.kube/config
+chmod 600 ~/.kube/config
+```
+
+Install non-Graph components of our stack
+
+``` bash
+task releases:apply-base
+```
