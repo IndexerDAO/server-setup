@@ -1,5 +1,6 @@
-# Prerequisites
-## Configure host machine 
+# Server Setup - Launchpad Part 1
+## Prerequisites
+### Configure host machine 
 Install Ubuntu 22.04
 
 ``` bash
@@ -14,7 +15,7 @@ ctrl + x
 y
 ```
 
-## Configure client machine
+### Configure client machine
 Remove stale host fingerprints from `~/.ssh/known_hosts`
 
 ``` bash
@@ -25,12 +26,34 @@ y
 ```
 
 Install Taskfile
+* Releases can be found here: https://github.com/go-task/task/releases
+
 ``` bash
-todo
+cd ~
+wget https://github.com/go-task/task/releases/download/v3.17.0/task_linux_amd64.tar.gz
+tar zxvf task_linux_amd64.tar.gz
+sudo ln -s /home/alex/task /usr/local/bin # change depending on your download path
 ```
 
-## Create source code version control repository
+### Create a hosted source code version control repository
 We use GitHub: https://github.com/IndexerDAO/launchpad-office-hours
-* don't create a `README.md`, `LICENSE`, or `.gitignore`
+* Don't create a `README.md`, `LICENSE`, or `.gitignore`
 
-# Getting Started
+## Launchpad
+Clone Launchpad-Starter to your client device
+
+``` bash
+cd code/IndexerDAO/LOH
+git clone https://github.com/graphops/launchpad-starter launchpad-office-hours
+cd launchpad-office-hours
+git remote remove origin
+```
+
+Commit files to your hosted source code version control repo
+
+``` bash
+git remote add origin https://github.com/IndexerDAO/launchpad-office-hours.git
+git push origin main
+```
+
+
