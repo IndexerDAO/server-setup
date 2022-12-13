@@ -1,4 +1,4 @@
 # Guides
 
-* [Launchpad Setup: Part 1](https://github.com/IndexerDAO/server-setup/blob/main/docs/Launchpad-Part1.md)
-* [Gnosis Nethermind](https://github.com/IndexerDAO/server-setup/blob/main/docs/Gnosis-Nethermind.md)
+* [Launchpad Setup: Part 1](https://indexerdao.github.io/server-setup/Launchpad-Part1.html)
+* [Gnosis Nethermind](https://indexerdao.github.io/server-setup/Gnosis-Nethermind.html)
