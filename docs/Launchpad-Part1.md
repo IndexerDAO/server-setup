@@ -1,4 +1,4 @@
-# Server Setup - Launchpad Part 1
+# Launchpad Setup: Part 1
 ## Prerequisites
 ### Configure host machine 
 Install Ubuntu 22.04
