@@ -1,16 +1,16 @@
 # Launchpad Setup: Part 1
 ## Prerequisites
 ### Configure host machine 
-Install Ubuntu 22.04
-
+Install [Ubuntu 22.04](https://releases.ubuntu.com/22.04/) on [Hetzner AX101 dedicated server](https://www.hetzner.com/dedicated-rootserver/ax101)
+* Use [`installimage`](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) script
 ``` bash
 installimage -n launchpad -r no -i images/Ubuntu-2204-jammy-amd64-base.tar.gz -d nvme0n1,nvme1n1 -p /boot:ext3:512M,lvm:vg0:all -v vg0:root:/:ext4:all
 ```
 
-Set up ssh key pair authentication
+Set up [ssh key pair authentication](https://help.ubuntu.com/community/SSH/OpenSSH/Keys)
 ``` bash
 nano ~/.ssh/authorized_keys
-<!-- paste your public ssh key into the file  -->
+# paste your public ssh key into the file or use Termius export to host
 ctrl + x
 y
 ```
