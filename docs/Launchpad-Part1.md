@@ -1,22 +1,23 @@
-# Launchpad Setup: Part 1
+# Launchpad Setup: k0s
 ## Prerequisites
 ### Configure host machine 
-Install [Ubuntu 22.04](https://releases.ubuntu.com/22.04/) on [Hetzner AX101 dedicated server](https://www.hetzner.com/dedicated-rootserver/ax101)
-* Use [`installimage`](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) script
+Install [Ubuntu 22.04](https://releases.ubuntu.com/22.04/) on [Hetzner AX101 dedicated server](https://www.hetzner.com/dedicated-rootserver/ax101) with [`installimage`](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) script
 ``` bash
 installimage -n launchpad -r no -i images/Ubuntu-2204-jammy-amd64-base.tar.gz -d nvme0n1,nvme1n1 -p /boot:ext3:512M,lvm:vg0:all -v vg0:root:/:ext4:all
 ```
 
 Set up [ssh key pair authentication](https://help.ubuntu.com/community/SSH/OpenSSH/Keys)
 ``` bash
+# create an ssh keypair if you don't already have one ready: run `ssh-keygen -t rsa` on client machine
 nano ~/.ssh/authorized_keys
-# paste your public ssh key into the file or use Termius export to host
+# paste your public ssh key from client machine into the file on host
 ctrl + x
 y
+# optional: use Termius export to host functionality instead of copy + paste to host
 ```
 
 ### Configure client machine
-Remove stale host fingerprints from `~/.ssh/known_hosts`
+Remove any [stale fingerprints](https://en.wikipedia.org/wiki/Public_key_fingerprint) the host(s) may have added to client `~/.ssh/known_hosts`
 
 ``` bash
 nano ~/.ssh/known_hosts
@@ -25,8 +26,7 @@ ctrl + x
 y
 ```
 
-Install Taskfile
-* Releases can be found here: https://github.com/go-task/task/releases
+Install [Taskfile](https://github.com/go-task/task/releases)
 
 ``` bash
 cd ~
@@ -37,7 +37,7 @@ sudo ln -s /home/alex/task /usr/local/bin # change depending on your download pa
 
 ### Create a hosted source code version control repository
 We use GitHub: https://github.com/IndexerDAO/launchpad-office-hours
-* Don't create a `README.md`, `LICENSE`, or `.gitignore`
+> Note: Don't create a `README.md`, `LICENSE`, or `.gitignore`
 
 ## Launchpad
 Clone Launchpad-Starter to your client device
