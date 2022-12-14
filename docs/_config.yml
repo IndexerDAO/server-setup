@@ -1,9 +1,12 @@
- title: Server Setup
+title: Server Setup
+
 # description: description would go here
+
 github:
   is_project_page: true
   
 # remote_theme: pages-themes/hacker@v0.2.0
+
 plugins:
 - jekyll-remote-theme
 
