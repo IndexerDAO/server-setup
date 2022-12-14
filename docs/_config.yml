@@ -1,4 +1,4 @@
-# title: title would go here
+ title: Server Setup
 # description: description would go here
 github:
   is_project_page: true
@@ -10,8 +10,12 @@ plugins:
 theme: minima
 
 minima:
-  skin: auto
+  skin: dark
   date_format: "%b %-d, %Y"
+  social_links:
+    - { platform: twitter,          user_url: "https://twitter.com/IndexerDAO" }
+    - { platform: youtube,        user_url: "https://www.youtube.com/channel/UC-YZuNU8-50gjeV04yVb6gQ" }
+    - { platform: github,        user_url: "https://github.com/indexerdao" }
 
 header_pages:
   - Guides.md
