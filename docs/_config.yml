@@ -1,18 +1,10 @@
 title: Server Setup
 
-author:
-  name: IndexerDAO
-  email: https://barracuda.io/IndexerDAO
-  
-# description: description would go here
-
 github:
   is_project_page: true
-  
-# remote_theme: pages-themes/hacker@v0.2.0
 
-plugins:
-- jekyll-remote-theme
+# plugins:
+# - jekyll-remote-theme
 
 theme: minima
 
