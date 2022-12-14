@@ -1,5 +1,8 @@
 title: Server Setup
 
+author:
+  name: IndexerDAO
+  
 # description: description would go here
 
 github:
@@ -13,12 +16,10 @@ plugins:
 theme: minima
 
 minima:
-  skin: dark
-  date_format: "%b %-d, %Y"
   social_links:
-    - { platform: twitter,          user_url: "https://twitter.com/IndexerDAO" }
-    - { platform: youtube,        user_url: "https://www.youtube.com/channel/UC-YZuNU8-50gjeV04yVb6gQ" }
-    - { platform: github,        user_url: "https://github.com/indexerdao" }
+    - { platform: twitter, user_url: "https://twitter.com/IndexerDAO" }
+    - { platform: youtube, user_url: "https://www.youtube.com/channel/UC-YZuNU8-50gjeV04yVb6gQ" }
+    - { platform: github, user_url: "https://github.com/indexerdao" }
 
 header_pages:
   - Guides.md
