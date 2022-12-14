@@ -3,16 +3,14 @@ title: Server Setup
 github:
   is_project_page: true
 
-# plugins:
-# - jekyll-remote-theme
+plugins:
+- jekyll-remote-theme
 
 theme: minima
 
-minima:
-  social_links:
-    - { platform: twitter, user_url: "https://twitter.com/IndexerDAO" }
-    - { platform: youtube, user_url: "https://www.youtube.com/channel/UC-YZuNU8-50gjeV04yVb6gQ" }
-    - { platform: github, user_url: "https://github.com/indexerdao" }
+twitter_username: IndexerDAO
+youtube_username: IndexerDAO
+github_username: IndexerDAO
 
 header_pages:
   - Guides.md
