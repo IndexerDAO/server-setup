@@ -4,17 +4,29 @@
 @import "minima";
 
 .footer-heading {
-  display: none
+  display: none;
 }
 
 .post-title {
-  display: none
+  display: none;
 }
 
 .p-name {
-  display: none
+  display: none;
 }
 
 .page-heading {
-  display: none
+  display: none;
+}
+
+.site-header {
+  background-color: #5362E8;
+}
+
+.site-title, .site-title:visited {
+    color: #f5f5f5;
+}
+
+.site-nav .page-link {
+    color: #f5f5f5;
 }
