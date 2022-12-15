@@ -1,3 +1,4 @@
+## Contributing
 **Add or remove a guide**
 * Create (or delete) Markdown file in `server-setup/docs/guides/`
 * Update `server-setup/docs/guides.md` with filepath and description of new guide
