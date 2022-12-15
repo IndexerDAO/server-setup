@@ -42,6 +42,6 @@ systemctl start postgresql-13
 grep -i hugepages_ /proc/meminfo
 ```
 
- ## Sources
+## Sources
 * https://dbsguru.com/steps-to-enable-hugepages-in-postgresql/
 * https://www.enterprisedb.com/postgres-tutorials/introduction-postgresql-performance-tuning-and-optimization
