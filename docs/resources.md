@@ -1,9 +1,9 @@
 # Resources
-## The Graph
+### The Graph
 * [Indexing documentation](https://thegraph.com/docs/en/network/indexing/)
 
 
-## Launchpad
+### Launchpad
 * [Official documentation](https://docs.graphops.xyz/launchpad/intro)
 * [`launchpad-starter` repo](https://github.com/graphops/launchpad-starter)
 * [`launchpad-core` repo](https://github.com/graphops/launchpad-core)
