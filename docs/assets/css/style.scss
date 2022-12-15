@@ -1,3 +1,14 @@
+---
+---
+
+@import
+  "minima/skins/{{ site.minima.skin | default: 'classic' }}",
+  "minima/initialize";
+
 .footer-heading {
+  display: none
+}
+
+.post-title {
   display: none
 }
