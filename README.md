@@ -1,5 +1,5 @@
 **Add or remove a guide**
-* Create a new Markdown file in `server-setup/docs/`
+* Create (or delete) Markdown file in `server-setup/docs/guides/`
 * Update `server-setup/docs/guides.md` with filepath and description of new guide
 
 **Add or remove a page from header navigation**
