@@ -1,2 +1,1 @@
-Payne's installation guide: https://thegraphfoundation.notion.site/Polygon-Phase-1-Serving-Polygon-Subgraphs-on-The-Graph-s-Goerli-Testnet-0baf495b4442494b96afe3d0c3864e38
-
+Payne's installation guide: https://thegraphfoundation.notion.site/Polygon-RPC-using-Erigon-77a651bd46544df5b59ed49f17289f7e
