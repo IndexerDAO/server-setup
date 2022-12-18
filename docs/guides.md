@@ -7,7 +7,7 @@
 | [Launchpad Setup: Goerli Testnet (Ethereum)](https://indexerdao.github.io/server-setup/guides/launchpad-goerli.html) | Configure and deploy Goerli blockchain namespace |
 | [Launchpad Setup: Gnosis](https://indexerdao.github.io/server-setup/guides/launchpad-gnosis.html) | Configure and deploy Gnosis blockchain namespace |
 | [Launchpad Setup: Polygon](https://indexerdao.github.io/server-setup/guides/launchpad-polygon.html) | Configure and deploy Polygon blockchain namespace |
-| [Polygon: Bare metal](https://indexerdao.github.io/server-setup/guides/polygon-baremetal.html) | Configure and deploy Polyon on Ubuntu |
+| [Polygon: Bare metal](https://indexerdao.github.io/server-setup/guides/polygon-baremetal.html) | Configure Polygon on Erigon with Systemd |
 | [PostgreSQL tuning](https://indexerdao.github.io/server-setup/guides/postgresql-tuning.html) | Performance tuning your PostgreSQL database |
 | [Useful commands](https://indexerdao.github.io/server-setup/guides/useful-commands.html) | Helpful bash commands for indexers |
 
