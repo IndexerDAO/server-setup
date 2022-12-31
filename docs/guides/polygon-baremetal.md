@@ -1,11 +1,13 @@
 # Polygon Node Setup Instructions
-## Configure Hetzner AX101 server
+#### Configure Hetzner AX101 server
 Put server into RescueMode from https://robot.hetzner.com/server
 * Click server link then “Rescue”
 * Note down the new password
     * Will need to update bitwarden with new password
 * Go to “Reset” then select “Execute an automatic hardware reset” 
     * Now you can access the server with username=root and the password from step b.
+
+<br>
 
 Install Ubuntu on machine using Hetzner installimage utility
 * Type `installimage` in RescueMode CLI then press enter
@@ -22,7 +24,10 @@ Install Ubuntu on machine using Hetzner installimage utility
 * Ssh into the server and verify that available space is greater than 7 terabytes
     * `df -h --total`
 
-## Install prerequisites
+<br>
+<br>
+
+#### Install prerequisites
 
 ``` bash
 apt update && apt upgrade
@@ -31,7 +36,10 @@ go install github.com/a8m/envsubst/cmd/envsubst@latest
 sudo apt install docker.io docker-compose
 ```
 
-## Download Erigon snapshot
+<br>
+<br>
+
+#### Download Erigon snapshot
 
 ``` bash
 screen -S erigon
@@ -42,7 +50,10 @@ wget --tries=0 -O - "${SNAPSHOT_URL}" | tar -xz -C ${ERIGON_HOME} && touch ${ERI
 screen -X detach 
 ```
 
-## Download Heimdall snapshot
+<br>
+<br>
+
+#### Download Heimdall snapshot
 
 ``` bash
 screen -S heimdall
@@ -53,7 +64,10 @@ wget --tries=0 -O - "${SNAPSHOT_URL}" | tar -xz -C ${HEIMDALL_HOME} && touch ${H
 screen -X detach 
 ```
 
-## Clone Erigon and install
+<br>
+<br>
+
+#### Clone Erigon and install
 
 ``` bash
 git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git
@@ -62,7 +76,10 @@ git checkout v2.32.0
 make
 ```
 
-## Clone Heimdall and install
+<br>
+<br>
+
+#### Clone Heimdall and install
 
 ``` bash
 cd ~
@@ -71,7 +88,10 @@ cd heimdall
 make build network=mainnet
 ```
 
-## Configure Heimdall
+<br>
+<br>
+
+#### Configure Heimdall
 
 ``` bash
 $HOME/heimdall/build/heimdalld init --home $HOME/.local/share/heimdall/
@@ -80,7 +100,10 @@ sed -i '/^seeds/c\seeds = "f4f605d60b8ffaaf15240564e58a81103510631c@159.203.9.16
 sed -i "s#^cors_allowed_origins.*#cors_allowed_origins = [\"*\"]#" $HOME/.local/share/heimdall/config/config.toml
 ```
 
-## Create systemd files for Erigon, Heimdalld and Heimdallr
+<br>
+<br>
+
+#### Create systemd files for Erigon, Heimdalld and Heimdallr
 `Erigon` service file
 
 ``` bash
@@ -105,6 +128,8 @@ KillSignal=SIGHUP
 [Install]
 WantedBy=multi-user.target" >> /etc/systemd/system/erigon.service
 ```
+
+<br>
 
 `Heimdalld` service file
 
@@ -131,6 +156,8 @@ KillSignal=SIGHUP
 WantedBy=multi-user.target" >> /etc/systemd/system/heimdalld.service
 ```
 
+<br>
+
 `Heimdallr` service file
 
 ``` bash
@@ -156,7 +183,10 @@ KillSignal=SIGHUP
 WantedBy=multi-user.target" >> /etc/systemd/system/heimdallr.service
 ```
 
-## Start heimdalld and heimdallr services
+<br>
+<br>
+
+#### Start heimdalld and heimdallr services
 
 ``` bash
 sudo systemctl daemon-reload
@@ -165,14 +195,20 @@ sudo systemctl enable heimdallr
 sudo systemctl start heimdalld heimdallr
 ```
 
-## Check Heimdall status
+<br>
+<br>
+
+#### Check Heimdall status
 
 ``` bash
 sudo journalctl -fu heimdalld
 curl http://localhost:26657/status
 ```
 
-## Start Erigon
+<br>
+<br>
+
+#### Start Erigon
 
 ``` bash
 #ONLY AFTER heimdall caught up to the chainhead, i.e. "catching_up": false in `curl http://localhost:26657/status` response
@@ -180,15 +216,21 @@ sudo systemctl enable erigon
 sudo systemctl start erigon
 ```
 
-## Check Erigon status
+<br>
+<br>
+
+#### Check Erigon status
 
 ``` bash
 sudo journalctl -fu erigon
 ```
 
-## Resources
+<br>
+<br>
 
-* Phase 1 docs: https://thegraphfoundation.notion.site/Polygon-Phase-1-Serving-Polygon-Subgraphs-on-The-Graph-s-Goerli-Testnet-0baf495b4442494b96afe3d0c3864e38
-* Payne’s installation guide: https://thegraphfoundation.notion.site/Polygon-RPC-using-Erigon-77a651bd46544df5b59ed49f17289f7e
-* Payne’s snapshot download script link: https://github.com/cventastic/POKT_DOKT/blob/main/polygon/erigon/scripts/entrypoint.sh
+#### Resources
+
+* [MIPS Polygon Phase 1 Notion Page](https://thegraphfoundation.notion.site/Polygon-Phase-1-Serving-Polygon-Subgraphs-on-The-Graph-s-Goerli-Testnet-0baf495b4442494b96afe3d0c3864e38)
+* [Payne’s Polygon Node installation guide](https://thegraphfoundation.notion.site/Polygon-RPC-using-Erigon-77a651bd46544df5b59ed49f17289f7e)
+* [Payne’s Polygon snapshot download helper script](https://github.com/cventastic/POKT_DOKT/blob/main/polygon/erigon/scripts/entrypoint.sh)
 
