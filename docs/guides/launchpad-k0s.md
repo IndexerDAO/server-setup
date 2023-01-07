@@ -38,6 +38,7 @@ delete_partitions() {
 
 delete_partitions /dev/nvme0n1
 delete_partitions /dev/nvme1n1
+reboot
 ```
 
 Install [Ubuntu 22.04](https://releases.ubuntu.com/22.04/) on [Hetzner AX101 dedicated server](https://www.hetzner.com/dedicated-rootserver/ax101) with [`installimage`](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) script
