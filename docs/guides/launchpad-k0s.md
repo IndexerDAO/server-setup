@@ -11,6 +11,34 @@ Put Hetzner AX101 server into RescueMode from https://robot.hetzner.com/server
 * Go to “Reset” then select “Execute an automatic hardware reset”. Click "Send".
 * Wait a few minutes then you can access the server with username=root and the password from step b.
 
+Delete NVME partitions from previous build
+
+``` bash
+delete_partitions() {
+ if [ "$1" ]; then
+  # clean RAID information for every partition not only for the blockdevice
+  for raidmember in $(sfdisk -l "$1" | grep -o "${1}p\?[0-9]\+"); do
+    mdadm -q --zero-superblock "$raidmember" 
+  done
+  # clean RAID information in superblock of blockdevice
+  mdadm -q --zero-superblock "$1" 
+
+  # delete GPT and MBR
+  sgdisk -Z "$1" 
+
+  # clean mbr boot code
+  dd if=/dev/zero of="$1" bs=512 count=1 status=none ; EXITCODE=$?
+
+  # re-read partition table
+  partprobe 
+
+  return $EXITCODE
+ fi
+}
+
+delete_partitions /dev/nvme0n1
+delete_partitions /dev/nvme1n1
+```
 
 Install [Ubuntu 22.04](https://releases.ubuntu.com/22.04/) on [Hetzner AX101 dedicated server](https://www.hetzner.com/dedicated-rootserver/ax101) with [`installimage`](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) script
 
