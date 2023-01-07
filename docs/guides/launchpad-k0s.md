@@ -1,10 +1,33 @@
 # Launchpad Setup: k0s
 ## Prerequisites
+
 ### Configure host machine 
+
+Put Hetzner AX101 server into RescueMode from https://robot.hetzner.com/server
+
+* Click server link then “Rescue”
+    * Note down the new password
+    * Will need to update bitwarden with new password
+* Go to “Reset” then select “Execute an automatic hardware reset”
+* Wait a few minutes then you can access the server with username=root and the password from step b.
+
+
 Install [Ubuntu 22.04](https://releases.ubuntu.com/22.04/) on [Hetzner AX101 dedicated server](https://www.hetzner.com/dedicated-rootserver/ax101) with [`installimage`](https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage/) script
-``` bash
-installimage -n launchpad -r no -i images/Ubuntu-2204-jammy-amd64-base.tar.gz -d nvme0n1,nvme1n1 -p /boot:ext3:512M,lvm:vg0:all -v vg0:root:/:ext4:all
-```
+
+* Type installimage in RescueMode CLI then press enter
+* Select Ubuntu then select Ubuntu-2204-jammy-amd64-base.tar.gz
+* From within the config file:
+    * Update SWRAIDLEVEL to 0
+    * Update HOSTNAME to Polygon-Node
+    * Update RAID configs as follows:
+        * PART swap swap 8G
+        * PART /boot ext3 512M
+        * PART / ext4 all
+* Type F10 > select Save changes
+* After install is complete, reboot the device
+* Ssh into the server and verify that available space is greater than 7 terabytes
+    * `df -h --total`
+
 
 Set up [ssh key pair authentication](https://help.ubuntu.com/community/SSH/OpenSSH/Keys)
 ``` bash
