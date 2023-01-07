@@ -3,6 +3,9 @@
 Show currently running services
 * `systemctl --type=service`
 
+Delete stale ssh fingerprint
+* `ssh-keygen -R [IP_ADDRESS]`
+
 Run previous command as `sudo`
 * `sudo !!`
 
