@@ -8,7 +8,7 @@ Put Hetzner AX101 server into RescueMode from https://robot.hetzner.com/server
 * Click server link then “Rescue”
     * Note down the new password
     * Will need to update bitwarden with new password
-* Go to “Reset” then select “Execute an automatic hardware reset”
+* Go to “Reset” then select “Execute an automatic hardware reset”. Click "Send".
 * Wait a few minutes then you can access the server with username=root and the password from step b.
 
 
