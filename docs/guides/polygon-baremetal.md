@@ -70,9 +70,8 @@ screen -X detach
 #### Clone Erigon and install
 
 ``` bash
-git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git
+git clone -b v0.0.5 https://github.com/maticnetwork/erigon
 cd erigon
-git checkout v2.34.0
 make
 ```
 
@@ -83,7 +82,7 @@ make
 
 ``` bash
 cd ~
-git clone https://github.com/maticnetwork/heimdall 
+git clone -b v0.3.0 https://github.com/maticnetwork/heimdall
 cd heimdall
 make build network=mainnet
 ```
