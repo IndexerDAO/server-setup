@@ -72,7 +72,7 @@ screen -X detach
 ``` bash
 git clone --recurse-submodules -j8 https://github.com/ledgerwatch/erigon.git
 cd erigon
-git checkout v2.32.0
+git checkout v2.34.0
 make
 ```
 
