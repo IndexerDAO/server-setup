@@ -45,7 +45,7 @@ sudo apt install docker.io docker-compose
 screen -S erigon
 ERIGON_HOME=$HOME/.local/share/erigon/datadir
 mkdir -p ${ERIGON_HOME}
-SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/erigon-archive-snapshot-2022-12-13.tar.gz
+SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/erigon-archive-snapshot-2023-01-12.tar.gz
 wget --tries=0 -O - "${SNAPSHOT_URL}" | tar -xz -C ${ERIGON_HOME} && touch ${ERIGON_HOME}/bootstrapped
 screen -X detach 
 ```
@@ -59,7 +59,7 @@ screen -X detach
 screen -S heimdall
 HEIMDALL_HOME=$HOME/.local/share/heimdall/data
 mkdir -p ${HEIMDALL_HOME}
-SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2022-12-26.tar.gz
+SNAPSHOT_URL=https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2023-01-17.tar.gz
 wget --tries=0 -O - "${SNAPSHOT_URL}" | tar -xz -C ${HEIMDALL_HOME} && touch ${HEIMDALL_HOME}/bootstrapped
 screen -X detach 
 ```
