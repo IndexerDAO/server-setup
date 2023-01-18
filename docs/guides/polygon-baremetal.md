@@ -93,10 +93,11 @@ make build network=mainnet
 #### Configure Heimdall
 
 ``` bash
-$HOME/heimdall/build/heimdalld init --home $HOME/.local/share/heimdall/
-wget -O $HOME/.local/share/heimdall/config/genesis.json https://raw.githubusercontent.com/maticnetwork/launch/master/mainnet-v1/without-sentry/heimdall/config/genesis.json
-sed -i '/^seeds/c\seeds = "f4f605d60b8ffaaf15240564e58a81103510631c@159.203.9.164:26656,4fb1bc820088764a564d4f66bba1963d47d82329@44.232.55.71:26656,2eadba4be3ce47ac8db0a3538cb923b57b41c927@35.199.4.13:26656,3b23b20017a6f348d329c102ddc0088f0a10a444@35.221.13.28:26656,25f5f65a09c56e9f1d2d90618aa70cd358aa68da@35.230.116.151:26656"' $HOME/.local/share/heimdall/config/config.toml
-sed -i "s#^cors_allowed_origins.*#cors_allowed_origins = [\"*\"]#" $HOME/.local/share/heimdall/config/config.toml
+cd ~
+/root/heimdall/build/heimdalld init --home /root/.local/share/heimdall/
+wget -O /root/.local/share/heimdall/config/genesis.json https://raw.githubusercontent.com/maticnetwork/launch/master/mainnet-v1/without-sentry/heimdall/config/genesis.json
+sed -i '/^seeds/c\seeds = "f4f605d60b8ffaaf15240564e58a81103510631c@159.203.9.164:26656,4fb1bc820088764a564d4f66bba1963d47d82329@44.232.55.71:26656,2eadba4be3ce47ac8db0a3538cb923b57b41c927@35.199.4.13:26656,3b23b20017a6f348d329c102ddc0088f0a10a444@35.221.13.28:26656,25f5f65a09c56e9f1d2d90618aa70cd358aa68da@35.230.116.151:26656"' /root/.local/share/heimdall/config/config.toml
+sed -i "s#^cors_allowed_origins.*#cors_allowed_origins = [\"*\"]#" /root/.local/share/heimdall/config/config.toml
 ```
 
 <br>
@@ -106,6 +107,7 @@ sed -i "s#^cors_allowed_origins.*#cors_allowed_origins = [\"*\"]#" $HOME/.local/
 `Erigon` service file
 
 ``` bash
+#erigon service file
 sudo echo "[Unit]
 Description=Erigon Polygon Service
 After=network.target
@@ -120,8 +122,8 @@ TimeoutSec=900
 User=root
 Nice=0
 LimitNOFILE=200000
-WorkingDirectory=$HOME/.local/share/erigon/
-ExecStart=$HOME/erigon/build/bin/erigon --chain="bor-mainnet" --datadir="$HOME/.local/share/erigon/datadir" --ethash.dagdir="$HOME/.local/share/erigon/datadir/ethash" --snapshots="true" --bor.heimdall="http://localhost:1317" --http --http.addr="0.0.0.0" --http.port="8545" --http.compression --http.vhosts="*" --http.corsdomain="*" --http.api="eth,debug,net,trace,web3,erigon,bor" --ws --ws.compression --rpc.gascap="300000000" --metrics --metrics.addr="0.0.0.0" --metrics.port="6969"
+WorkingDirectory=/root/.local/share/erigon/
+ExecStart=/root/erigon/build/bin/erigon --chain="bor-mainnet" --datadir="/root/.local/share/erigon/datadir" --ethash.dagdir="/root/.local/share/erigon/datadir/ethash" --snapshots="true" --bor.heimdall="http://localhost:1317" --http --http.addr="0.0.0.0" --http.port="8545" --http.compression --http.vhosts="*" --http.corsdomain="*" --http.api="eth,debug,net,trace,web3,erigon,bor" --ws --ws.compression --rpc.gascap="300000000" --metrics --metrics.addr="0.0.0.0" --metrics.port="6969"
 KillSignal=SIGHUP
 
 [Install]
@@ -133,6 +135,7 @@ WantedBy=multi-user.target" >> /etc/systemd/system/erigon.service
 `Heimdalld` service file
 
 ``` bash
+#heimdalld service file
 sudo echo "[Unit]
 Description=Heimdalld
 After=network.target
@@ -147,8 +150,8 @@ TimeoutSec=900
 User=root
 Nice=0
 LimitNOFILE=200000
-WorkingDirectory=$HOME/.local/share/heimdall/
-ExecStart=$HOME/heimdall/build/heimdalld --home $HOME/.local/share/heimdall/ start
+WorkingDirectory=/root/.local/share/heimdall/
+ExecStart=/root/heimdall/build/heimdalld --home /root/.local/share/heimdall/ start
 KillSignal=SIGHUP
 
 [Install]
@@ -160,6 +163,7 @@ WantedBy=multi-user.target" >> /etc/systemd/system/heimdalld.service
 `Heimdallr` service file
 
 ``` bash
+#heimdallr service file
 sudo echo "[Unit]
 Description=Heimdallr
 After=network.target
@@ -201,7 +205,9 @@ sudo systemctl start heimdalld heimdallr
 
 ``` bash
 sudo journalctl -fu heimdalld
+#for logs
 curl http://localhost:26657/status
+#You should see "network": "heimdall-137" in the output, if you don’t something went wrong with the init and replacing the genesis.json file… anyway wait for it to say "catching_up": false
 ```
 
 <br>
@@ -223,6 +229,33 @@ sudo systemctl start erigon
 ``` bash
 sudo journalctl -fu erigon
 ```
+
+<br>
+<br>
+
+#### Setup firewall
+
+``` bash
+sudo apt install ufw
+sudo ufw allow ssh && ufw enable
+curl https://ipecho.net/plain ; echo
+sudo ufw allow from <public_ip> to any port 8545
+```
+
+<br>
+<br>
+
+#### Setup monitoring
+
+``` bash
+git clone https://github.com/StakeSquid/host-monitoring-docker
+sudo ufw allow from <erigon_public_ip> to any port 6969
+cd host-monitoring-docker
+#edit .env file with your variables
+nano .env
+sudo bash start
+```
+
 
 <br>
 <br>
